@@ -74,7 +74,7 @@ jobs:
     strategy:
       matrix:
         image: [ asciidoctor ]
-        tag: latest
+        tag: [ latest ]
     steps:
       - name: Scan image
         uses: azure/container-scan@v0
