@@ -37,15 +37,6 @@ jobs:
       - name: Build
         run: |
           make build
-      - name: Build
-        run: |
-          docker images
-      - name: Scan image
-        uses: azure/container-scan@v0
-        with:
-          image-name: asciidoctor:latest
-          severity-threshold: HIGH
-          run-quality-checks: false
       - name: Deploy Cache
         # Only upstream has the cache registry credential as PRs cannot be trusted
         if: github.event_name != 'pull_request'
@@ -74,24 +65,3 @@ jobs:
           git config --local user.name "${GITHUB_ACTOR}"
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           make deploy-README deploy
-  scan-images:
-    name: Scan images
-    runs-on: ubuntu-latest
-#    needs: build
-    env:
-      CACHE_REGISTRY: ghcr.io
-    strategy:
-      matrix:
-        image: [ asciidoctor ]
-        tag: [ cache ]
-    steps:
-      - name: debug
-        run: docker pull asciidoctor/docker-asciidoctor:latest
-      - name: debug2
-        run: docker pull ghcr.io/asciidoctor/asciidoctor:cache
-      - name: Scan image
-        uses: azure/container-scan@v0
-        with:
-          image-name: ${{ env.CACHE_REGISTRY }}/${{ matrix.image }}
-          severity-threshold: HIGH
-          run-quality-checks: false
