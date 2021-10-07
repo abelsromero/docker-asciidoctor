@@ -87,6 +87,8 @@ jobs:
     steps:
       - name: debug
         run: docker pull asciidoctor/docker-asciidoctor:latest
+      - name: debug2
+        run: docker pull ghcr.io/asciidoctor/asciidoctor:cache
       - name: Scan image
         uses: azure/container-scan@v0
         with:
