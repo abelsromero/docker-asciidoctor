@@ -82,4 +82,4 @@ jobs:
         uses: azure/container-scan@v0
         with:
           image-name: asciidoctor/docker-asciidoctor:latest
-
+          run-quality-checks: false
