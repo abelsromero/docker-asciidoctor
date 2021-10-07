@@ -81,5 +81,6 @@ jobs:
       - name: Scan image
         uses: azure/container-scan@v0
         with:
-          image-name: asciidoctor/docker-asciidoctor:latest
+          image-name: ${{ env.CACHE_REGISTRY }}/${{ matrix.image }}
+          severity-threshold: HIGH
           run-quality-checks: false
