@@ -37,6 +37,15 @@ jobs:
       - name: Build
         run: |
           make build
+      - name: Build
+        run: |
+          docker images
+      - name: Scan image
+        uses: azure/container-scan@v0
+        with:
+          image-name: asciidoctor:latest
+          severity-threshold: HIGH
+          run-quality-checks: false
       - name: Deploy Cache
         # Only upstream has the cache registry credential as PRs cannot be trusted
         if: github.event_name != 'pull_request'
